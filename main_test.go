@@ -4,26 +4,21 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/gin-gonic/gin"
 )
 
-func TestPingRoute(t *testing.T) {
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+func TestHomepageHandler(t *testing.T) {
+	mockResponse := `{"message":"Welcome to the Tech Company listing API with Golang"}`
+	r := SetUpRouter()
+	r.GET("/", HomepageHandler)
 
-	req, err := http.NewRequest("GET", "/ping", nil)
+	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	// Create a response recorder
 	rr := httptest.NewRecorder()
-	router.ServeHTTP(rr, req)
+	r.ServeHTTP(rr, req)
 
 	// Check the status code
 	if status := rr.Code; status != http.StatusOK {
@@ -32,9 +27,9 @@ func TestPingRoute(t *testing.T) {
 	}
 
 	// Check the response body
-	expected := `{"message":"pong"}`
-	if rr.Body.String() != expected {
+	// expected := `{"message":"pong"}`
+	if rr.Body.String() != mockResponse {
 		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
+			rr.Body.String(), mockResponse)
 	}
 }
