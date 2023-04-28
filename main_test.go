@@ -7,6 +7,7 @@ import (
 )
 
 // 測試gin功能是否正常
+// 測試CI
 func TestHomepageHandler(t *testing.T) {
 	mockResponse := `{"message":"Welcome to the Tech Company listing API with Golang"}`
 	r := SetUpRouter()
