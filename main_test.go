@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// 測試gin功能是否正常
 func TestHomepageHandler(t *testing.T) {
 	mockResponse := `{"message":"Welcome to the Tech Company listing API with Golang"}`
 	r := SetUpRouter()
